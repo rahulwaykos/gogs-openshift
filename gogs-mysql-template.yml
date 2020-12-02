@@ -101,7 +101,8 @@ objects:
         serviceAccount: gogs
         serviceAccountName: gogs
         volumes:
-        - emptyDir: {}
+        - persistentVolumeClaim:
+            claimName: gogs-data
           name: gogs-volume
     triggers:
     - type: ConfigChange
@@ -127,7 +128,8 @@ objects:
       spec: 
         volumes: 
           - name: "data"
-            emptyDir: {}
+            persistentVolumeClaim:
+              claimName: gogs-mysql-data
         containers: 
           - name: mysql
             image: mysql:5.6
