@@ -112,6 +112,8 @@ objects:
     name: mysql
     annotations: 
       description: "Defines how to deploy the database"
+    labels:
+      app: gogs
   spec: 
     strategy: 
       type: "Recreate"
