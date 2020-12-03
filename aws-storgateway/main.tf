@@ -29,13 +29,16 @@ resource "aws_s3_bucket" "s3"  {
   
   }
 
-resource "resource "aws_storagegateway_gateway" "gateway" {
+resource "aws_storagegateway_gateway" "gateway" {
   gateway_ip_address = aws_instance.gateway-ec2.public_ip
   gateway_name       = var.gateway_name
   gateway_timezone   = var.gateway_timezone
   gateway_type       = "FILE_S3"
-} "
+} 
 
+ output "service_endpoint" {
+   value = aws_storagegateway_gateway.endpoint_type
+   }
 
  output "gateway_ip" {
    value = aws_instance.gateway-ec2.public_ip
