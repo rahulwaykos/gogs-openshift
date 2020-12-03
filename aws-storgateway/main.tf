@@ -10,14 +10,19 @@ resource "aws_instance" "gateway-ec2" {
   security_groups             = var.security_groups
   key_name                    = var.key_name
   
- 
-  ebs_block_device {
-    ebs_device_name       = var.ebs_device_name
-    volume_size           = var.ebs_volume_size
-    delete_on_termination = var.delete_on_termination
   }
+
+resource "aws_ebs_volume" "ebs" {
+  availability_zone = aws_instance.gateway-ec2.availability_zone
+  size              = 150
   
   }
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdb"
+  volume_id   = aws_ebs_volume.example.id
+  instance_id = aws_instance.gateway-ec2.id
+}
+
 
 resource "aws_s3_bucket" "s3"  {
   bucket       =     "nfs-test"
@@ -34,11 +39,11 @@ resource "aws_storagegateway_gateway" "gateway" {
   gateway_name       = var.gateway_name
   gateway_timezone   = var.gateway_timezone
   gateway_type       = "FILE_S3"
-} 
-
- output "service_endpoint" {
-   value = aws_storagegateway_gateway.endpoint_type
-   }
+}
+ data "aws_storagegateway_local_disk" "test" {
+  disk_path   = aws_volume_attachment.ebs_att.device_name
+  gateway_arn = aws_storagegateway_gateway.gateway-ec2.arn
+}
 
  output "gateway_ip" {
    value = aws_instance.gateway-ec2.public_ip
