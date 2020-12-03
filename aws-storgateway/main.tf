@@ -2,36 +2,41 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_security_group" "nginx" {
-  name   = "nginx_access"
-  vpc_id = var.vpc_id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_instance" "nginx" {
-  ami                         = "ami-0dba2cb6798deb6d8"
+resource "aws_instance" "gateway-ec2" {
+  ami                         = "ami-0056d3b3567a0b634"
   subnet_id                   = var.subnet_id
-  instance_type               = "t2.micro"
+  instance_type               = "m4.xlarge"
   associate_public_ip_address = true
-  security_groups             = [aws_security_group.nginx.id]
+  security_groups             = var.security_groups
   key_name                    = var.key_name
+  
+ 
+  ebs_block_device {
+    ebs_device_name       = var.ebs_device_name
+    volume_size           = var.ebs_volume_size
+    delete_on_termination = var.delete_on_termination
+  }
+  
+  }
+
+resource "aws_s3_bucket" "s3"  {
+  bucket       =     "nfs-test"
+  acl          =     "public-read-write"
+  
+  versioning {
+    enabled = false
+  }
+  
+  }
+
+resource "resource "aws_storagegateway_gateway" "gateway" {
+  gateway_ip_address = aws_instance.gateway-ec2.public_ip
+  gateway_name       = var.gateway_name
+  gateway_timezone   = var.gateway_timezone
+  gateway_type       = "FILE_S3"
+} "
+
+
+ output "gateway_ip" {
+   value = aws_instance.gateway-ec2.public_ip
+   }
