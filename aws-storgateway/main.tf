@@ -7,7 +7,7 @@ resource "aws_instance" "gateway-ec2" {
   subnet_id                   = var.subnet_id
   instance_type               = "m4.xlarge"
   associate_public_ip_address = true
-  security_groups             = var.security_groups
+  #security_groups             = var.security_groups
   key_name                    = var.key_name
   
   }
