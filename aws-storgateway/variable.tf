@@ -1,19 +1,41 @@
 variable "vpc_id" {
-  default  = "vpc-0b5f4e71d693c1852"
+  default  = "vpc-3909da44"
 }
 
 variable "subnet_id" {
-  default  = "subnet-0c4e6519a41fd5e60"
-}
-
-variable "ssh_user" {
-  default  = "ubuntu"
+  default  = "subnet-e3a32485"
 }
 
 variable "key_name" {
-  default  = "devops"
+  default  = "storage-gateway"
 }
 
-variable "private_key_path" {
-  default  = "~/terraform-ansible-aws/code/devops.pem"
+variable "security_groups" {
+  default  = "launch-wizard-1"
 }
+
+variable "ebs_device_name" {
+  default  = "/dev/xvdb"
+}
+
+variable "ebs_volume_size" {
+  type     = number
+  default  = "150"
+}
+
+variable "delete_on_termination" {
+  default  = "true"
+}
+
+variable "gateway_name" {
+  default = "nfs-gateway"
+}
+
+variable "gateway_timezone" {
+  default = "GMT"
+}
+
+variable "nfs_client_list" {
+  default = ["0.0.0.0/0"]
+}
+
