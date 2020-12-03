@@ -53,7 +53,7 @@ resource "aws_storagegateway_cache" "cache-disk" {
 resource "aws_storagegateway_nfs_file_share" "nfs" {
   client_list  = var.nfs_client_list
   gateway_arn  = aws_storagegateway_gateway.gateway.arn
-  location_arn = aws_s3_bucket.bucket.arn
+  location_arn = aws_s3_bucket.s3.arn
   role_arn     = aws_iam_role.gateway.arn
 }
 
@@ -83,7 +83,7 @@ data "aws_iam_policy_document" "s3-bucket-access" {
     ]
 
     resources = [
-      aws_s3_bucket.bucket.arn
+      aws_s3_bucket.s3.arn
     ]
   }
 
