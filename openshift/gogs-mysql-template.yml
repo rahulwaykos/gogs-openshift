@@ -101,8 +101,7 @@ objects:
         serviceAccount: gogs
         serviceAccountName: gogs
         volumes:
-        - persistentVolumeClaim:
-            claimName: gogs-data
+        - emptyDir: {}
           name: gogs-volume
     triggers:
     - type: ConfigChange
