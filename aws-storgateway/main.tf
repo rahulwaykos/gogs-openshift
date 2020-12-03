@@ -19,7 +19,7 @@ resource "aws_ebs_volume" "ebs" {
   }
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sdb"
-  volume_id   = aws_ebs_volume.example.id
+  volume_id   = aws_ebs_volume.ebs.id
   instance_id = aws_instance.gateway-ec2.id
 }
 
