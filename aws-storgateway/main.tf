@@ -45,6 +45,11 @@ resource "aws_storagegateway_gateway" "gateway" {
   gateway_arn = aws_storagegateway_gateway.gateway.arn
 }
 
+resource "aws_storagegateway_cache" "cache-disk" {
+  disk_id     = data.aws_storagegateway_local_disk.local-disk.id
+  gateway_arn = aws_storagegateway_gateway.gateway.arn
+}
+
  output "gateway_ip" {
    value = aws_instance.gateway-ec2.public_ip
    }
