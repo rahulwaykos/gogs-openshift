@@ -40,8 +40,8 @@ resource "aws_storagegateway_gateway" "gateway" {
   gateway_timezone   = var.gateway_timezone
   gateway_type       = "FILE_S3"
 }
- data "aws_storagegateway_local_disk" "test" {
-  disk_path   = aws_volume_attachment.ebs_att.device_name
+ data "aws_storagegateway_local_disk" "local-disk" {
+  disk_node   = aws_volume_attachment.ebs_att.device_name
   gateway_arn = aws_storagegateway_gateway.gateway.arn
 }
 
