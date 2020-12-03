@@ -1,0 +1,51 @@
+<html>
+<style>
+body {
+  background-image: url('background1.png');
+}
+  
+ .leftHalf {
+    position:absolute;
+    left: 0px;
+    height:100%;
+    width:50%;
+    overflow: hidden;
+}
+
+.rightHalf {
+    position:absolute;
+    right: 0px;
+    height: 75%;
+    width: 50%;
+    overflow: hidden;
+}
+
+.leftHalf video {
+    min-width: 100%;
+    min-height: 100%;
+}
+.rightHalf video {
+    min-width: 50%;
+    min-height: 50%;
+}
+</style>
+ 
+
+<head>
+  
+  <link rel="stylesheet" type="text/css" href="asciinema-player.css" />
+  
+</head>
+<body>
+  <div class="leftHalf">
+  <asciinema-player src="task.cast" autoplay=1></asciinema-player>
+  
+  <script src="asciinema-player.js"></script>
+  </div>  
+</body><div class="rightHalf">
+    <video preload autoplay loop muted>
+        <source src="chrome.webm" type="video/webm" />
+    </video>
+</div>
+  
+</html>
