@@ -1,17 +1,4 @@
-- kind: PersistentVolumeClaim
-  apiVersion: v1
-  metadata:
-    name: gogs-data
-    labels:
-      app: gogs
-  spec:
-    storageClassName: manual
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 1Gi
-- kind: PersistentVolumeClaim
+kind: PersistentVolumeClaim
   apiVersion: v1
   metadata:
     name: gogs-mysql-data
