@@ -10,5 +10,5 @@ spec:
   - ReadWriteOnce 
   nfs: 
     path: /nfs-test 
-    server:  
+    server: 18.234.247.56
   persistentVolumeReclaimPolicy: Recycle 
