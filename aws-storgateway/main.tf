@@ -42,7 +42,7 @@ resource "aws_storagegateway_gateway" "gateway" {
 }
  data "aws_storagegateway_local_disk" "test" {
   disk_path   = aws_volume_attachment.ebs_att.device_name
-  gateway_arn = aws_storagegateway_gateway.gateway-ec2.arn
+  gateway_arn = aws_storagegateway_gateway.gateway.arn
 }
 
  output "gateway_ip" {
